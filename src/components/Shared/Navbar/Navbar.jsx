@@ -10,7 +10,7 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className='fixed w-full bg-black bg-opacity-30 z-10 shadow-sm'>
+    <div className='fixed w-full bg-black bg-opacity-30 text-white z-10 shadow-sm'>
       <div className=''>
         <Container>
           <div className='flex flex-row items-center justify-between gap-3 md:gap-0'>
@@ -60,7 +60,7 @@ const Navbar = () => {
                 </div>
               </div>
               {isOpen && (
-                <div className='absolute rounded-xl shadow-md w-[40vw] md:w-[10vw]  overflow-hidden right-0 top-12 text-sm'>
+                <div className='absolute rounded-xl shadow-md w-[40vw] md:w-[10vw] bg-black bg-opacity-30 overflow-hidden right-0 top-12 text-sm'>
                   <div className='flex flex-col cursor-pointer'>
                     {/* Links for smaller screens */}
                     <Link
@@ -79,7 +79,7 @@ const Navbar = () => {
                       <>
                         <div
                           onClick={logOut}
-                          className='px-4 py-3 hover:bg-neutral-100 transition font-semibold cursor-pointer'
+                          className='px-4 py-3  hover:bg-slate-500 transition font-semibold cursor-pointer'
                         >
                           Logout
                         </div>
@@ -88,13 +88,13 @@ const Navbar = () => {
                       <>
                         <Link
                           to='/login'
-                          className='px-4 py-3 hover:bg-neutral-100 transition font-semibold'
+                          className='px-4 py-3 hover:bg-slate-500 transition font-semibold'
                         >
                           Login
                         </Link>
                         <Link
                           to='/signup'
-                          className='px-4 py-3 hover:bg-neutral-100 transition font-semibold'
+                          className='px-4 py-3 hover:bg-slate-500 transition font-semibold'
                         >
                           Sign Up
                         </Link>
