@@ -3,6 +3,7 @@ import Categories from '../../components/Categories/Categories'
 import Rooms from '../../components/Home/Rooms'
 import Banner from '../../components/Home/Banner/Banner'
 import AboutBuilding from '../../components/Home/About'
+import LocationDetails from '../../components/Home/Location/LocationDetails'
 
 const Home = () => {
   return (
@@ -14,6 +15,8 @@ const Home = () => {
       <Banner/>
       
       <AboutBuilding/>
+
+      <LocationDetails/>
     </div>
   )
 }
