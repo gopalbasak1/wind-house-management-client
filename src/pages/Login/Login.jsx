@@ -8,12 +8,12 @@ import { Helmet } from 'react-helmet-async'
 
 
 const Login = () => {
-  const navigate = useNavigate()
-  const location = useLocation()
-  const from = location?.state || '/'
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location?.state || '/';
   const { signInWithGoogle, signIn, loading, setLoading, resetPassword } =
-    useAuth()
-  const [email, setEmail] = useState('')
+    useAuth();
+  const [email, setEmail] = useState('');
 
   const handleSubmit = async e => {
     e.preventDefault()
@@ -64,7 +64,7 @@ const Login = () => {
   return (
     <div className='flex justify-center items-center min-h-screen'>
       <Helmet>
-        <title>StayVista | Login</title>
+        <title>Wind House | Login</title>
       </Helmet>
       <div className='flex flex-col max-w-md p-6 rounded-md sm:p-10 bg-gray-100 text-gray-900'>
         <div className='mb-8 text-center'>

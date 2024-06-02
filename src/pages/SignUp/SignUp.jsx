@@ -1,10 +1,11 @@
 import { Link, useNavigate } from 'react-router-dom'
 import { FcGoogle } from 'react-icons/fc'
 import useAuth from '../../hooks/useAuth'
-import axios from 'axios'
 import toast from 'react-hot-toast'
 import { TbFidgetSpinner } from 'react-icons/tb'
 import { imageUpload } from '../../api/utilities'
+import { Helmet } from 'react-helmet-async'
+
 
 const SignUp = () => {
   const navigate = useNavigate()
@@ -14,7 +15,7 @@ const SignUp = () => {
     updateUserProfile,
     loading,
     setLoading,
-  } = useAuth()
+  } = useAuth();
 
   const handleSubmit = async e => {
     e.preventDefault()
@@ -51,19 +52,24 @@ const SignUp = () => {
       await signInWithGoogle()
 
       navigate('/')
-      toast.success('Signup Successful')
+      toast.success('Sign Up Successful')
     } catch (err) {
       console.log(err)
       toast.error(err.message)
     }
-  }
+  };
+
+
 
   return (
     <div className='flex justify-center items-center min-h-screen'>
+     <Helmet>
+        <title>Wind House | Sign Up</title>
+      </Helmet>
       <div className='flex flex-col max-w-md p-6 rounded-md sm:p-10 bg-gray-100 text-gray-900'>
         <div className='mb-8 text-center'>
           <h1 className='my-3 text-4xl font-bold'>Sign Up</h1>
-          <p className='text-sm text-gray-400'>Welcome to StayVista</p>
+          <p className='text-sm text-gray-400'>Welcome to Wind House</p>
         </div>
         <form onSubmit={handleSubmit} className='space-y-6'>
           <div className='space-y-4'>
@@ -141,7 +147,7 @@ const SignUp = () => {
         <div className='flex items-center pt-4 space-x-1'>
           <div className='flex-1 h-px sm:w-16 dark:bg-gray-700'></div>
           <p className='px-3 text-sm dark:text-gray-400'>
-            Signup with social accounts
+            Sign up with social accounts
           </p>
           <div className='flex-1 h-px sm:w-16 dark:bg-gray-700'></div>
         </div>
@@ -162,7 +168,6 @@ const SignUp = () => {
           >
             Login
           </Link>
-          .
         </p>
       </div>
     </div>

@@ -28,14 +28,14 @@ const Apartment = () => {
   return (
       <div>
         <Helmet>
-        <title>StayVista | Apartment</title>
+        <title>Wind House | Apartment</title>
       </Helmet>
         <Container>
       {rooms && rooms.length > 0 ? (
         <div className='pt-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-8'>
           {rooms.map(room => (
-            <div key={room.apartmentNo} className="flex flex-col items-center justify-center w-full max-w-sm mx-auto">
-              <div className="w-full h-64 bg-gray-300 bg-center bg-cover rounded-lg shadow-md" style={{ backgroundImage: `url(${room.image})` }}></div>
+            <div key={room.apartmentNo} className="flex flex-col items-center justify-center w-full max-w-sm mx-auto cursor-pointer group">
+              <div className="w-full h-64 bg-gray-300 bg-center bg-cover rounded-lg shadow-md group-hover:scale-120" style={{ backgroundImage: `url(${room.image})` }}></div>
 
               <div className="w-56 -mt-10 overflow-hidden bg-white rounded-lg shadow-lg md:w-64 dark:bg-gray-800">
                 <h3 className="py-2 font-bold tracking-wide text-center text-gray-800 uppercase dark:text-white">Floor No: {room.blockName}</h3>
