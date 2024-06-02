@@ -56,16 +56,17 @@ const AuthProvider = ({ children }) => {
     })
   }
   // Get token from server
-  const getToken = async email => {
-    const { data } = await axios.post(
-      `${import.meta.env.VITE_API_URL}/jwt`,
-      { email },
-      { withCredentials: true }
-    )
-    return data
-  }
-
+  // const getToken = async email => {
+  //   const { data } = await axios.post(
+  //     `${import.meta.env.VITE_API_URL}/jwt`,
+  //     { email },
+  //     { withCredentials: true }
+  //   )
+  //   return data
+  // }
   // onAuthStateChange
+
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, currentUser => {
       setUser(currentUser)
