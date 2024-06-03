@@ -34,11 +34,13 @@ const Apartment = () => {
     const agreementData = {
       userName: user.displayName,
       userEmail: user.email,
+      userImage: user.photoURL,
       floorNo: room.floorNo,
       blockName: room.blockName,
       apartmentNo: room.apartmentNo,
       rent: room.rent,
       status: 'pending',
+      acceptDate: new Date().toISOString().split('T')[0], // Current date
     };
 
     try {

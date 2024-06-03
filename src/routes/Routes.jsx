@@ -4,14 +4,14 @@ import Home from '../pages/Home/Home'
 import ErrorPage from '../pages/ErrorPage'
 import Login from '../pages/Login/Login'
 import SignUp from '../pages/SignUp/SignUp'
-import RoomDetails from '../pages/RoomDetails/RoomDetails'
 import Apartment from '../pages/Apartment/Apartment'
 import DashboardLayout from '../layouts/DashboardLayout'
 import Statistics from '../pages/Dashboard/Common/Statistics'
 import MakePayment from '../pages/Dashboard/Member/MakePayment/MakePayment'
 import PaymentHistory from '../pages/Dashboard/Member/PaymentHistory/PaymentHistory'
-import UserProfile from '../pages/Dashboard/User/UserProfile/UserProfile'
 import Profile from '../pages/Dashboard/Common/Profile'
+import ManageMembers from '../pages/Dashboard/Admin/ManageMembers/ManageMembers'
+import AgreementRequests from '../pages/Dashboard/Admin/AgreementRequests/AgreementRequests'
 
 export const router = createBrowserRouter([
   {
@@ -41,10 +41,6 @@ export const router = createBrowserRouter([
         element: <Statistics/>
       },
       {
-        path: 'user-profile',
-        element: <UserProfile/>
-      },
-      {
         path: 'make-payment',
         element: <MakePayment/>
       },
@@ -55,6 +51,14 @@ export const router = createBrowserRouter([
       {
         path: 'profile',
         element: <Profile/>
+      },
+      {
+        path: 'manage-members',
+        element: <ManageMembers/>
+      },
+      {
+        path: 'agreement-requests',
+        element: <AgreementRequests/>
       }
     ],
   }

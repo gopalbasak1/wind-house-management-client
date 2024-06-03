@@ -6,8 +6,8 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 
 const Profile = () => {
-  const { user, loading } = useAuth() || {};
-  const [role, isLoading] = useRole();
+  const { user, loading: authLoading } = useAuth() || {};
+  const [role, roleLoading] = useRole();
   const [profileData, setProfileData] = useState(null);
   const [isProfileLoading, setIsProfileLoading] = useState(true);
 
@@ -26,7 +26,7 @@ const Profile = () => {
     }
   }, [user]);
 
-  if (loading || isLoading || isProfileLoading) return <LoadingSpinner />;
+  if (authLoading || roleLoading || isProfileLoading) return <LoadingSpinner />;
 
   const agreement = profileData?.agreement || {
     acceptDate: 'none',
@@ -34,6 +34,8 @@ const Profile = () => {
     blockName: 'none',
     apartmentNo: 'none',
   };
+
+  console.log(agreement);
 
   return (
     <div className='flex justify-center items-center h-screen'>

@@ -13,6 +13,8 @@ import { GiPayMoney } from 'react-icons/gi'
 import useRole from '../../../hooks/useRole'
 import MenuItem from './Menu/MenuItem'
 import { CgProfile } from 'react-icons/cg'
+import { FaUserCog } from 'react-icons/fa'
+import { VscGitPullRequestGoToChanges } from 'react-icons/vsc'
 
 const Sidebar = () => {
   const { logOut } = useAuth()
@@ -84,12 +86,7 @@ const Sidebar = () => {
               address='/dashboard' 
               icon={BsGraphUp} />
               
-
-              {/* My Profile */}
-              <MenuItem 
-              label="My Profile" 
-              address='user-profile' 
-              icon={CgProfile} />
+            
               
             {/* Make payment */}
             <MenuItem 
@@ -102,6 +99,18 @@ const Sidebar = () => {
               label="Payment History" 
               address='payment-history' 
               icon={MdOutlinePayments} />
+
+              {/* Manage Members */}
+              <MenuItem 
+              label="Manage Members" 
+              address='manage-members' 
+              icon={FaUserCog} />
+          
+              {/* Manage Members */}
+              <MenuItem 
+              label="AgreementRequests" 
+              address='agreement-requests' 
+              icon={VscGitPullRequestGoToChanges} />
             </nav>
           </div>
         </div>
