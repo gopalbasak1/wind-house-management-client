@@ -10,10 +10,15 @@ import useAuth from '../../../hooks/useAuth'
 import { Link } from 'react-router-dom'
 import { MdHomeWork, MdOutlinePayments } from 'react-icons/md'
 import { GiPayMoney } from 'react-icons/gi'
+import useRole from '../../../hooks/useRole'
+import MenuItem from './Menu/MenuItem'
+import { CgProfile } from 'react-icons/cg'
 
 const Sidebar = () => {
   const { logOut } = useAuth()
   const [isActive, setActive] = useState(false)
+  const [role, isLoading] = useRole();
+  console.log(role, isLoading);
 
   // Sidebar Responsive Handler
   const handleToggle = () => {
@@ -74,46 +79,29 @@ const Sidebar = () => {
             {/*  Menu Items */}
             <nav>
               {/* Statistics */}
-              <NavLink
-                to='/dashboard'
-                end
-                className={({ isActive }) =>
-                  `flex items-center px-4 py-2 my-5  transition-colors duration-300 transform  hover:bg-gray-300   hover:text-gray-700 ${
-                    isActive ? 'bg-gray-300  text-gray-700' : 'text-gray-600'
-                  }`
-                }
-              >
-                <BsGraphUp className='w-5 h-5' />
+              <MenuItem 
+              label="Statistics" 
+              address='/dashboard' 
+              icon={BsGraphUp} />
+              
 
-                <span className='mx-4 font-medium'>Statistics</span>
-              </NavLink>
-
-              {/* Add Room */}
-              <NavLink
-                to='make-payment'
-                className={({ isActive }) =>
-                  `flex items-center px-4 py-2 my-5  transition-colors duration-300 transform  hover:bg-gray-300   hover:text-gray-700 ${
-                    isActive ? 'bg-gray-300  text-gray-700' : 'text-gray-600'
-                  }`
-                }
-              >
-                <GiPayMoney className='w-5 h-5' />
-
-                <span className='mx-4 font-medium'>Make Payment</span>
-              </NavLink>
-              {/* My Listing */}
-              <NavLink
-                to='payment-history'
-                className={({ isActive }) =>
-                  `flex items-center px-4 py-2 my-5  transition-colors duration-300 transform  hover:bg-gray-300   hover:text-gray-700 ${
-                    isActive ? 'bg-gray-300  text-gray-700' : 'text-gray-600'
-                  }`
-                }
-              >
-                <MdOutlinePayments className='w-5 h-5' />
-
-                <span className='mx-4 font-medium'>Payment History</span>
-              </NavLink>
+              {/* My Profile */}
+              <MenuItem 
+              label="My Profile" 
+              address='user-profile' 
+              icon={CgProfile} />
+              
+            {/* Make payment */}
+            <MenuItem 
+              label="Make Payment" 
+              address='make-payment' 
+              icon={GiPayMoney} />
+              
+              {/* Payment History */}
+              <MenuItem 
+              label="Payment History" 
+              address='payment-history' 
+              icon={MdOutlinePayments} />
             </nav>
           </div>
         </div>
@@ -122,18 +110,11 @@ const Sidebar = () => {
           <hr />
 
           {/* Profile Menu */}
-          <NavLink
-            to='/dashboard/profile'
-            className={({ isActive }) =>
-              `flex items-center px-4 py-2 my-5  transition-colors duration-300 transform  hover:bg-gray-300   hover:text-gray-700 ${
-                isActive ? 'bg-gray-300  text-gray-700' : 'text-gray-600'
-              }`
-            }
-          >
-            <FcSettings className='w-5 h-5' />
-
-            <span className='mx-4 font-medium'>Profile</span>
-          </NavLink>
+          <MenuItem 
+              label="Profile" 
+              address='/dashboard/profile' 
+              icon={FcSettings} />
+         
           <button
             onClick={logOut}
             className='flex w-full items-center px-4 py-2 mt-5 text-gray-600 hover:bg-gray-300   hover:text-gray-700 transition-colors duration-300 transform'

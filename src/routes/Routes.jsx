@@ -10,6 +10,8 @@ import DashboardLayout from '../layouts/DashboardLayout'
 import Statistics from '../pages/Dashboard/Common/Statistics'
 import MakePayment from '../pages/Dashboard/Member/MakePayment/MakePayment'
 import PaymentHistory from '../pages/Dashboard/Member/PaymentHistory/PaymentHistory'
+import UserProfile from '../pages/Dashboard/User/UserProfile/UserProfile'
+import Profile from '../pages/Dashboard/Common/Profile'
 
 export const router = createBrowserRouter([
   {
@@ -39,12 +41,20 @@ export const router = createBrowserRouter([
         element: <Statistics/>
       },
       {
+        path: 'user-profile',
+        element: <UserProfile/>
+      },
+      {
         path: 'make-payment',
         element: <MakePayment/>
       },
       {
         path: 'payment-history',
         element: <PaymentHistory/>
+      },
+      {
+        path: 'profile',
+        element: <Profile/>
       }
     ],
   }
