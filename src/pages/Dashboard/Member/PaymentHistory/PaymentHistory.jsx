@@ -3,6 +3,21 @@ import axios from 'axios';
 import useAuth from '../../../../hooks/useAuth';
 import LoadingSpinner from '../../../../components/Shared/LoadingSpinner';
 
+const monthMap = {
+  1: 'january',
+  2: 'february',
+  3: 'march',
+  4: 'april',
+  5: 'may',
+  6: 'june',
+  7: 'july',
+  8: 'august',
+  9: 'september',
+  10: 'october',
+  11: 'november',
+  12: 'december',
+};
+
 const PaymentHistory = () => {
   const { user, loading } = useAuth() || {};
   const [payments, setPayments] = useState([]);
@@ -31,9 +46,17 @@ const PaymentHistory = () => {
   };
 
   const handleSearchClick = () => {
+    const lowercasedQuery = searchQuery.toLowerCase();
+    const monthNumber = parseInt(lowercasedQuery, 10);
+
+    let searchMonth = lowercasedQuery;
+    if (!isNaN(monthNumber) && monthNumber >= 1 && monthNumber <= 12) {
+      searchMonth = monthMap[monthNumber];
+    }
+
     setFilteredPayments(
-      payments.filter((payment) =>
-        payment.month.toLowerCase().includes(searchQuery.toLowerCase())
+      payments.filter((payment) => 
+        payment.month.toLowerCase().includes(searchMonth)
       )
     );
   };
@@ -48,7 +71,7 @@ const PaymentHistory = () => {
           placeholder="Search by month name or number"
           value={searchQuery}
           onChange={handleSearchChange}
-          className="px-4 py-2 border rounded"
+          className="px-4 w-80 py-2 border rounded"
         />
         <button
           onClick={handleSearchClick}

@@ -14,6 +14,9 @@ import ManageMembers from '../pages/Dashboard/Admin/ManageMembers/ManageMembers'
 import AgreementRequests from '../pages/Dashboard/Admin/AgreementRequests/AgreementRequests'
 import MyProfile from '../pages/Dashboard/Member/MyProfile/MyProfile'
 import Payment from '../components/Dashboard/Payment/Payment'
+import PrivateRoute from './PrivateRoute'
+import MemberRoute from './MemberRoute'
+import AdminRoute from './AdminRoute'
 
 export const router = createBrowserRouter([
   {
@@ -44,31 +47,47 @@ export const router = createBrowserRouter([
       },
       {
         path: 'make-payment',
-        element: <MakePayment/>
+        element: <PrivateRoute>
+          <MemberRoute>
+          <MakePayment/>
+          </MemberRoute>
+        </PrivateRoute>
       },
       {
         path: 'payment-history',
-        element: <PaymentHistory/>
+        element: <PrivateRoute>
+          <MemberRoute>
+          <PaymentHistory/>
+          </MemberRoute>
+        </PrivateRoute>
       },
       {
         path: 'profile',
         element: <Profile/>
       },
       {
-        path: 'my-profile',
-        element: <MyProfile/>
-      },
-      {
         path: 'manage-members',
-        element: <ManageMembers/>
+        element: <PrivateRoute>
+          <AdminRoute>
+          <ManageMembers/>
+          </AdminRoute>
+        </PrivateRoute>
       },
       {
         path: 'agreement-requests',
-        element: <AgreementRequests/>
+        element: <PrivateRoute>
+          <AdminRoute>
+          <AgreementRequests/>
+          </AdminRoute>
+        </PrivateRoute>
       },
       {
         path: 'payment',
-        element: <Payment/>
+        element: <PrivateRoute>
+          <MemberRoute>
+          <Payment/>
+          </MemberRoute>
+        </PrivateRoute>
       }
     ],
   }

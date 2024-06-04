@@ -11,6 +11,9 @@ import useRole from '../../../hooks/useRole'
 import MenuItem from './Menu/MenuItem'
 import { FaUserCog } from 'react-icons/fa'
 import { VscGitPullRequestGoToChanges } from 'react-icons/vsc'
+import UserMenu from '../Menu/UserMenu'
+import MemberMenu from '../Menu/MemberMenu'
+import AdminMenu from '../Menu/AdminMenu'
 
 const Sidebar = () => {
   const { logOut } = useAuth()
@@ -81,37 +84,15 @@ const Sidebar = () => {
               label="Statistics" 
               address='/dashboard' 
               icon={BsGraphUp} />
-              
+
+
+               {role === 'user' && <UserMenu/>}
+
+               {role === 'member' && <MemberMenu/>}
+             
+             {role === 'admin' && <AdminMenu/>}
             
               
-            {/* Make payment */}
-            <MenuItem 
-              label="Make Payment" 
-              address='make-payment' 
-              icon={GiPayMoney} />
-              
-              {/* Payment History */}
-              <MenuItem 
-              label="Payment History" 
-              address='payment-history' 
-              icon={MdOutlinePayments} />
-
-              {/* Manage Members */}
-              <MenuItem 
-              label="Manage Members" 
-              address='manage-members' 
-              icon={FaUserCog} />
-
-              <MenuItem 
-              label="My Profile" 
-              address='my-profile' 
-              icon={FaUserCog} />
-          
-              {/* Manage Members */}
-              <MenuItem 
-              label="AgreementRequests" 
-              address='agreement-requests' 
-              icon={VscGitPullRequestGoToChanges} />
             </nav>
           </div>
         </div>
