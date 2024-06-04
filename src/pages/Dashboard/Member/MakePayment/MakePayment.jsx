@@ -47,10 +47,10 @@ const MakePayment = () => {
 
     const paymentData = {
       userEmail: user.email,
-      floorNo: profileData.agreement.floorNo,
-      blockName: profileData.agreement.blockName,
-      apartmentNo: profileData.agreement.apartmentNo,
-      rent: profileData.agreement.rent * (1 - discount / 100),
+      floorNo: profileData?.agreement?.floorNo,
+      blockName: profileData?.agreement?.blockName,
+      apartmentNo: profileData?.agreement?.apartmentNo,
+      rent: profileData?.agreement?.rent * (1 - discount / 100),
       month,
     };
 
@@ -71,36 +71,27 @@ const MakePayment = () => {
             </div>
             <div className="mb-4">
               <label className="block text-gray-700">Floor No:</label>
-              <input type="text" value={profileData.agreement?.floorNo} readOnly className="w-full p-2 border rounded" />
+              <input type="text" value={profileData?.agreement?.floorNo || ''} readOnly className="w-full p-2 border rounded" />
             </div>
             <div className="mb-4">
               <label className="block text-gray-700">Block Name:</label>
-              <input type="text" value={profileData.agreement?.blockName} readOnly className="w-full p-2 border rounded" />
+              <input type="text" value={profileData?.agreement?.blockName || ''} readOnly className="w-full p-2 border rounded" />
             </div>
             <div className="mb-4">
               <label className="block text-gray-700">Apartment No:</label>
-              <input type="text" value={profileData.agreement?.apartmentNo} readOnly className="w-full p-2 border rounded" />
+              <input type="text" value={profileData?.agreement?.apartmentNo || ''} readOnly className="w-full p-2 border rounded" />
             </div>
             <div className="mb-4">
               <label className="block text-gray-700">Rent:</label>
-              <input type="text" value={`$${profileData.agreement?.rent}`} readOnly className="w-full p-2 border rounded" />
+              <input type="text" value={`$${profileData?.agreement?.rent || 0}`} readOnly className="w-full p-2 border rounded" />
             </div>
             <div className="mb-4">
               <label className="block text-gray-700">Month:</label>
               <select value={month} onChange={(e) => setMonth(e.target.value)} className="w-full p-2 border rounded">
                 <option value="">Select Month</option>
-                <option value="January">January</option>
-                <option value="February">February</option>
-                <option value="March">March</option>
-                <option value="April">April</option>
-                <option value="May">May</option>
-                <option value="June">June</option>
-                <option value="July">July</option>
-                <option value="August">August</option>
-                <option value="September">September</option>
-                <option value="October">October</option>
-                <option value="November">November</option>
-                <option value="December">December</option>
+                {['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'].map((m) => (
+                  <option key={m} value={m}>{m}</option>
+                ))}
               </select>
             </div>
             <div className="mb-4">
@@ -111,7 +102,7 @@ const MakePayment = () => {
             {discount > 0 && (
               <div className="mb-4">
                 <label className="block text-gray-700">Discounted Rent:</label>
-                <input type="text" value={`$${(profileData.agreement.rent * (1 - discount / 100)).toFixed(2)}`} readOnly className="w-full p-2 border rounded" />
+                <input type="text" value={`$${(profileData?.agreement?.rent * (1 - discount / 100)).toFixed(2)}`} readOnly className="w-full p-2 border rounded" />
               </div>
             )}
             <button type="button" onClick={handlePayment} className="w-full p-2 bg-green-500 text-white rounded">Pay</button>
