@@ -17,8 +17,8 @@ const AgreementRequests = () => {
   });
 
   const updateAgreementStatus = useMutation({
-    mutationFn: async ({ id, status, userEmail }) => {
-      await axiosSecure.put('/agreement/status', { id, status, userEmail });
+    mutationFn: async ({ id, status, userEmail, agreementDetails }) => {
+      await axiosSecure.put('/agreement/status', { id, status, userEmail, agreementDetails });
     },
     onSuccess: () => {
       toast.success('Agreement status updated successfully.');
@@ -30,7 +30,17 @@ const AgreementRequests = () => {
   });
 
   const handleAccept = (agreement) => {
-    updateAgreementStatus.mutate({ id: agreement._id, status: 'accepted', userEmail: agreement.userEmail });
+    updateAgreementStatus.mutate({
+      id: agreement._id,
+      status: 'accepted',
+      userEmail: agreement.userEmail,
+      agreementDetails: {
+        acceptDate: new Date(),
+        floorNo: agreement.floorNo,
+        blockName: agreement.blockName,
+        apartmentNo: agreement.apartmentNo,
+      },
+    });
   };
 
   const handleReject = (agreement) => {

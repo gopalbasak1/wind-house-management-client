@@ -4,6 +4,7 @@ import useRole from '../../../hooks/useRole';
 import LoadingSpinner from '../../../components/Shared/LoadingSpinner';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import { gl } from 'date-fns/locale';
 
 const Profile = () => {
   const { user, loading: authLoading } = useAuth() || {};
@@ -11,11 +12,12 @@ const Profile = () => {
   const [profileData, setProfileData] = useState(null);
   const [isProfileLoading, setIsProfileLoading] = useState(true);
 
-  useEffect(() => {
+  const fetchProfileData = () => {
     if (user) {
       axios
-        .get(`/user/${user.email}`, { withCredentials: true })
+        .get(`http://localhost:5000/profile`, { withCredentials: true })
         .then((response) => {
+          console.log(response.data);
           setProfileData(response.data);
           setIsProfileLoading(false);
         })
@@ -24,18 +26,16 @@ const Profile = () => {
           setIsProfileLoading(false);
         });
     }
+  };
+  
+
+  useEffect(() => {
+    fetchProfileData();
   }, [user]);
 
   if (authLoading || roleLoading || isProfileLoading) return <LoadingSpinner />;
 
-  const agreement = profileData?.agreement || {
-    acceptDate: 'none',
-    floorNo: 'none',
-    blockName: 'none',
-    apartmentNo: 'none',
-  };
-
-  console.log(agreement);
+  // const agreement = profileData;
 
   return (
     <div className='flex justify-center items-center h-screen'>
@@ -52,7 +52,7 @@ const Profile = () => {
           <a href='#' className='relative block'>
             <img
               alt='profile'
-              src={user?.photoURL}
+              src={user?.photoURL || profileData?.userImage}
               className='mx-auto object-cover rounded-full h-24 w-24 border-2 border-white'
             />
           </a>
@@ -60,19 +60,19 @@ const Profile = () => {
             {role}
           </p>
           <p className='mt-2 text-xl font-medium text-gray-800'>
-            User Id: {user?.uid}
+            User Id: {user?.uid || profileData?._id}
           </p>
           <div className='w-full p-2 mt-4 rounded-lg'>
             <div className='flex flex-wrap items-center justify-between text-sm text-gray-600'>
               <p className='flex flex-col'>
                 Name
                 <span className='font-bold text-black'>
-                  {user?.displayName}
+                  {user?.displayName || profileData?.userName}
                 </span>
               </p>
               <p className='flex flex-col'>
                 Email
-                <span className='font-bold text-black'>{user?.email}</span>
+                <span className='font-bold text-black'>{user?.email || profileData?.userEmail}</span>
               </p>
             </div>
             <div className='mt-8 w-full bg-white rounded-lg shadow-lg p-6'>
@@ -80,19 +80,31 @@ const Profile = () => {
               <div className='flex flex-col space-y-2'>
                 <div className='flex justify-between'>
                   <span className='font-semibold'>Accept Date:</span>
-                  <span>{agreement.acceptDate}</span>
+                  <span>{profileData?.agreement?.acceptDate ? new Date(profileData.agreement?.acceptDate).toLocaleDateString() : 'none'}</span>
                 </div>
                 <div className='flex justify-between'>
                   <span className='font-semibold'>Floor No:</span>
-                  <span>{agreement.floorNo}</span>
+                  <span>{profileData?.agreement?.floorNo || 'none'}</span>
                 </div>
                 <div className='flex justify-between'>
                   <span className='font-semibold'>Block Name:</span>
-                  <span>{agreement.blockName}</span>
+                  <span>{profileData?.agreement?.blockName || 'none'}</span>
                 </div>
                 <div className='flex justify-between'>
                   <span className='font-semibold'>Apartment No:</span>
-                  <span>{agreement.apartmentNo}</span>
+                  <span>{profileData?.agreement.apartmentNo || 'none'}</span>
+                </div>
+                <div className='flex justify-between'>
+                  <span className='font-semibold'>Rent:</span>
+                  <span>{profileData?.agreement.rent  || 'none'}</span>
+                </div>
+                <div className='flex justify-between'>
+                  <span className='font-semibold'>Status:</span>
+                  <span>{profileData?.agreement?.status || 'none'}</span>
+                </div>
+                <div className='flex justify-between'>
+                  <span className='font-semibold'>Timestamp:</span>
+                  <span>{profileData.agreement?.timestamp ? new Date(profileData?.agreement?.timestamp).toLocaleString() : 'none'}</span>
                 </div>
               </div>
             </div>

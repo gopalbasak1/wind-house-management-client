@@ -12,6 +12,8 @@ import PaymentHistory from '../pages/Dashboard/Member/PaymentHistory/PaymentHist
 import Profile from '../pages/Dashboard/Common/Profile'
 import ManageMembers from '../pages/Dashboard/Admin/ManageMembers/ManageMembers'
 import AgreementRequests from '../pages/Dashboard/Admin/AgreementRequests/AgreementRequests'
+import MyProfile from '../pages/Dashboard/Member/MyProfile/MyProfile'
+import Payment from '../components/Dashboard/Payment/Payment'
 
 export const router = createBrowserRouter([
   {
@@ -53,12 +55,20 @@ export const router = createBrowserRouter([
         element: <Profile/>
       },
       {
+        path: 'my-profile',
+        element: <MyProfile/>
+      },
+      {
         path: 'manage-members',
         element: <ManageMembers/>
       },
       {
         path: 'agreement-requests',
         element: <AgreementRequests/>
+      },
+      {
+        path: 'payment',
+        element: <Payment/>
       }
     ],
   }

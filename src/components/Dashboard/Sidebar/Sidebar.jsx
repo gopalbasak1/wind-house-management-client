@@ -105,6 +105,11 @@ const Sidebar = () => {
               label="Manage Members" 
               address='manage-members' 
               icon={FaUserCog} />
+
+              <MenuItem 
+              label="My Profile" 
+              address='my-profile' 
+              icon={FaUserCog} />
           
               {/* Manage Members */}
               <MenuItem 

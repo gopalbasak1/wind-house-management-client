@@ -1,10 +1,9 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import useAuth from '../../../../hooks/useAuth';
 import useRole from '../../../../hooks/useRole';
 import LoadingSpinner from '../../../../components/Shared/LoadingSpinner';
-
-
 
 const MakePayment = () => {
   const { user, loading } = useAuth() || {};
@@ -14,13 +13,12 @@ const MakePayment = () => {
   const [coupon, setCoupon] = useState('');
   const [discount, setDiscount] = useState(0);
   const [month, setMonth] = useState('');
-
-
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (user) {
       axios
-        .get(`/user/${user.email}`, { withCredentials: true })
+        .get(`http://localhost:5000/user/${user.email}`, { withCredentials: true })
         .then((response) => {
           setProfileData(response.data);
           setIsProfileLoading(false);
@@ -32,17 +30,21 @@ const MakePayment = () => {
     }
   }, [user]);
 
-  const handleApplyCoupon = async () => {
-    try {
-      const response = await axios.post('/validate-coupon', { couponCode: coupon });
-      setDiscount(response.data.discount);
-    } catch (error) {
-      console.error('Invalid coupon:', error);
+  const handleApplyCoupon = () => {
+    if (coupon === 'First10') {
+      setDiscount(10);
+    } else {
       setDiscount(0);
+      alert('Invalid coupon');
     }
   };
 
-  const handlePayment = async () => {
+  const handlePayment = () => {
+    if (!month) {
+      alert('Please select the month you want to pay for.');
+      return;
+    }
+
     const paymentData = {
       userEmail: user.email,
       floorNo: profileData.agreement.floorNo,
@@ -52,13 +54,7 @@ const MakePayment = () => {
       month,
     };
 
-    try {
-      await axios.post('/make-payment', paymentData);
-      alert('Payment successful!');
-      history.push('/profile'); // Redirect to profile or another page after payment
-    } catch (error) {
-      console.error('Payment failed:', error);
-    }
+    navigate('/dashboard/payment', { state: { paymentData } });
   };
 
   if (loading || isLoading || isProfileLoading) return <LoadingSpinner />;
@@ -91,7 +87,21 @@ const MakePayment = () => {
             </div>
             <div className="mb-4">
               <label className="block text-gray-700">Month:</label>
-              <input type="text" value={month} onChange={(e) => setMonth(e.target.value)} className="w-full p-2 border rounded" />
+              <select value={month} onChange={(e) => setMonth(e.target.value)} className="w-full p-2 border rounded">
+                <option value="">Select Month</option>
+                <option value="January">January</option>
+                <option value="February">February</option>
+                <option value="March">March</option>
+                <option value="April">April</option>
+                <option value="May">May</option>
+                <option value="June">June</option>
+                <option value="July">July</option>
+                <option value="August">August</option>
+                <option value="September">September</option>
+                <option value="October">October</option>
+                <option value="November">November</option>
+                <option value="December">December</option>
+              </select>
             </div>
             <div className="mb-4">
               <label className="block text-gray-700">Coupon:</label>
@@ -101,7 +111,7 @@ const MakePayment = () => {
             {discount > 0 && (
               <div className="mb-4">
                 <label className="block text-gray-700">Discounted Rent:</label>
-                <input type="text" value={`$${profileData.agreement.rent * (1 - discount / 100)}`} readOnly className="w-full p-2 border rounded" />
+                <input type="text" value={`$${(profileData.agreement.rent * (1 - discount / 100)).toFixed(2)}`} readOnly className="w-full p-2 border rounded" />
               </div>
             )}
             <button type="button" onClick={handlePayment} className="w-full p-2 bg-green-500 text-white rounded">Pay</button>
