@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import './CheckoutForm.css';
 import { useLocation } from 'react-router-dom';
+import toast from 'react-hot-toast';
 
 const CheckoutForm = () => {
   const stripe = useStripe();
@@ -62,6 +63,7 @@ const CheckoutForm = () => {
       console.log('[confirmError]', confirmError);
     } else if (paymentIntent.status === 'succeeded') {
       console.log('Payment successful!');
+      toast.success('Payment successful!');
       // Handle successful payment here
       await storePaymentData(paymentIntent);
     }
@@ -78,9 +80,11 @@ const CheckoutForm = () => {
     try {
       const { data } = await axiosSecure.post('/store-payment', paymentDetails);
       console.log('Payment data stored:', data);
+      toast.success('Payment data stored:', data);
       // Redirect to a success page or show a success message
     } catch (error) {
       console.error('Failed to store payment data:', error);
+      toast.error('Failed to store payment data:', error);
     }
   };
 

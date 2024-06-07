@@ -1,7 +1,8 @@
-import { BsFillHouseAddFill } from 'react-icons/bs'
-import { MdHomeWork, MdOutlineManageHistory, MdOutlinePayments } from 'react-icons/md'
+import {  MdOutlinePayments } from 'react-icons/md'
 import MenuItem from '../Sidebar/Menu/MenuItem'
 import { GiPayMoney } from 'react-icons/gi'
+import { FcSettings } from 'react-icons/fc'
+import { TfiAnnouncement } from 'react-icons/tfi'
 
 
 const MemberMenu = () => {
@@ -18,6 +19,14 @@ const MemberMenu = () => {
               label="Payment History" 
               address='payment-history' 
               icon={MdOutlinePayments} />
+              <MenuItem 
+              label="Announcement" 
+              address='announcement' 
+              icon={TfiAnnouncement} />
+              <MenuItem 
+              label="Profile" 
+              address='/dashboard/profile' 
+              icon={FcSettings} />
     </>
   )
 }

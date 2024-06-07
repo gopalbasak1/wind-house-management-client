@@ -17,6 +17,9 @@ import Payment from '../components/Dashboard/Payment/Payment'
 import PrivateRoute from './PrivateRoute'
 import MemberRoute from './MemberRoute'
 import AdminRoute from './AdminRoute'
+import MakeAnnouncement from '../pages/Dashboard/Admin/MakeAnnouncement/MakeAnnouncement'
+import Announcement from '../pages/Dashboard/Member/Announcements/Announcements'
+import ManageCoupons from '../pages/Dashboard/Admin/ManageCoupons'
 
 export const router = createBrowserRouter([
   {
@@ -79,6 +82,28 @@ export const router = createBrowserRouter([
           <AdminRoute>
           <AgreementRequests/>
           </AdminRoute>
+        </PrivateRoute>
+      },
+      {
+        path: 'make-announcement',
+        element: <PrivateRoute>
+          <AdminRoute>
+          <MakeAnnouncement/>
+          </AdminRoute>
+        </PrivateRoute>
+      },
+      {
+        path: 'manage-coupons',
+        element: <PrivateRoute>
+          <AdminRoute>
+          <ManageCoupons/>
+          </AdminRoute>
+        </PrivateRoute>
+      },
+      {
+        path: 'announcement',
+        element: <PrivateRoute>
+          <Announcement></Announcement>
         </PrivateRoute>
       },
       {

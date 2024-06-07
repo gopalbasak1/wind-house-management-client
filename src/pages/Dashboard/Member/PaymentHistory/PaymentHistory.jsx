@@ -46,6 +46,12 @@ const PaymentHistory = () => {
   };
 
   const handleSearchClick = () => {
+    if (searchQuery.trim() === '') {
+      // If the search query is empty, reset the filtered payments to all payments
+      setFilteredPayments(payments);
+      return;
+    }
+
     const lowercasedQuery = searchQuery.toLowerCase();
     const monthNumber = parseInt(lowercasedQuery, 10);
 
@@ -55,10 +61,13 @@ const PaymentHistory = () => {
     }
 
     setFilteredPayments(
-      payments.filter((payment) => 
+      payments.filter((payment) =>
         payment.month.toLowerCase().includes(searchMonth)
       )
     );
+
+    // Clear the search query input value
+    setSearchQuery('');
   };
 
   if (loading || isLoading) return <LoadingSpinner />;
@@ -91,14 +100,22 @@ const PaymentHistory = () => {
             </tr>
           </thead>
           <tbody>
-            {filteredPayments.map((payment, index) => (
-              <tr key={payment._id}>
-                <th>{index + 1}</th>
-                <td className="border px-4 py-2">{new Date(payment.paymentDate).toLocaleDateString()}</td>
-                <td className="border px-4 py-2">{payment.month}</td>
-                <td className="border px-4 py-2">${payment.rent}</td>
+            {filteredPayments.length > 0 ? (
+              filteredPayments.map((payment, index) => (
+                <tr key={payment._id}>
+                  <th>{index + 1}</th>
+                  <td className="border px-4 py-2">{new Date(payment.paymentDate).toLocaleDateString()}</td>
+                  <td className="border px-4 py-2">{payment.month}</td>
+                  <td className="border px-4 py-2">${payment.rent}</td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan="4" className="border px-4 py-2 text-center">
+                  No data found
+                </td>
               </tr>
-            ))}
+            )}
           </tbody>
         </table>
       </div>

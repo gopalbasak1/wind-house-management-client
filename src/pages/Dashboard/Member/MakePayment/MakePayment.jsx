@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import useAuth from '../../../../hooks/useAuth';
 import useRole from '../../../../hooks/useRole';
 import LoadingSpinner from '../../../../components/Shared/LoadingSpinner';
+import toast from 'react-hot-toast';
 
 const MakePayment = () => {
   const { user, loading } = useAuth() || {};
@@ -25,6 +26,7 @@ const MakePayment = () => {
         })
         .catch((error) => {
           console.error('Error fetching user profile:', error);
+          toast.error('Error fetching user profile:', error);
           setIsProfileLoading(false);
         });
     }
@@ -35,13 +37,13 @@ const MakePayment = () => {
       setDiscount(10);
     } else {
       setDiscount(0);
-      alert('Invalid coupon');
+      toast.error('Invalid coupon');
     }
   };
 
   const handlePayment = () => {
     if (!month) {
-      alert('Please select the month you want to pay for.');
+      toast.error('Please select the month you want to pay for.');
       return;
     }
 

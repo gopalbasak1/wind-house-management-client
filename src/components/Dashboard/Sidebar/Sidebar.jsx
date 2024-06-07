@@ -101,10 +101,7 @@ const Sidebar = () => {
           <hr />
 
           {/* Profile Menu */}
-          <MenuItem 
-              label="Profile" 
-              address='/dashboard/profile' 
-              icon={FcSettings} />
+          
          
           <button
             onClick={logOut}
