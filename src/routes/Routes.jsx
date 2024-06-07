@@ -6,7 +6,6 @@ import Login from '../pages/Login/Login'
 import SignUp from '../pages/SignUp/SignUp'
 import Apartment from '../pages/Apartment/Apartment'
 import DashboardLayout from '../layouts/DashboardLayout'
-import Statistics from '../pages/Dashboard/Common/Statistics'
 import MakePayment from '../pages/Dashboard/Member/MakePayment/MakePayment'
 import PaymentHistory from '../pages/Dashboard/Member/PaymentHistory/PaymentHistory'
 import Profile from '../pages/Dashboard/Common/Profile'
@@ -46,8 +45,12 @@ export const router = createBrowserRouter([
     element: <DashboardLayout/>,
     children:[
       {
-        index: true,
-        element: <Statistics/>
+        path: 'admin-profile',
+        element: <PrivateRoute>
+          <AdminRoute>
+            <AdminProfile/>
+          </AdminRoute>
+        </PrivateRoute>
       },
       {
         path: 'make-payment',
@@ -115,14 +118,7 @@ export const router = createBrowserRouter([
           </MemberRoute>
         </PrivateRoute>
       },
-      {
-        path: 'admin-profile',
-        element: <PrivateRoute>
-          <AdminRoute>
-            <AdminProfile/>
-          </AdminRoute>
-        </PrivateRoute>
-      }
+      
     ],
   }
 ])
