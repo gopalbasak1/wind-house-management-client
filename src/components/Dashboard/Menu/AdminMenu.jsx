@@ -2,7 +2,7 @@ import { FaUserCog } from 'react-icons/fa'
 import MenuItem from '../Sidebar/Menu/MenuItem'
 import { VscGitPullRequestGoToChanges } from 'react-icons/vsc'
 import { TfiAnnouncement } from 'react-icons/tfi'
-import { RiCoupon4Line } from 'react-icons/ri'
+import { RiAdminLine, RiCoupon4Line } from 'react-icons/ri'
 
 const AdminMenu = () => {
   return (
@@ -28,6 +28,11 @@ const AdminMenu = () => {
               label="Manage Coupon" 
               address='manage-coupons' 
               icon={RiCoupon4Line} />
+
+              <MenuItem 
+              label="Admin Profile" 
+              address='admin-profile' 
+              icon={RiAdminLine} />
     </>
   )
 }

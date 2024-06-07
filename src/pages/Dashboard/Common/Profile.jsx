@@ -4,7 +4,6 @@ import useRole from '../../../hooks/useRole';
 import LoadingSpinner from '../../../components/Shared/LoadingSpinner';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { gl } from 'date-fns/locale';
 
 const Profile = () => {
   const { user, loading: authLoading } = useAuth() || {};

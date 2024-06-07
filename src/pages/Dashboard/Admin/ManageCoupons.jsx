@@ -10,7 +10,7 @@ const ManageCoupons = () => {
   const axiosCommon = useAxiosCommon();
   const [coupons, setCoupons] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [role, isLoading] = useRole();
+  const [isLoading] = useRole();
 
   useEffect(() => {
     const fetchCoupons = async () => {

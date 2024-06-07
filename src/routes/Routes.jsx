@@ -20,6 +20,7 @@ import AdminRoute from './AdminRoute'
 import MakeAnnouncement from '../pages/Dashboard/Admin/MakeAnnouncement/MakeAnnouncement'
 import Announcement from '../pages/Dashboard/Member/Announcements/Announcements'
 import ManageCoupons from '../pages/Dashboard/Admin/ManageCoupons'
+import AdminProfile from '../pages/Dashboard/Admin/AdminProfile/AdminProfile'
 
 export const router = createBrowserRouter([
   {
@@ -112,6 +113,14 @@ export const router = createBrowserRouter([
           <MemberRoute>
           <Payment/>
           </MemberRoute>
+        </PrivateRoute>
+      },
+      {
+        path: 'admin-profile',
+        element: <PrivateRoute>
+          <AdminRoute>
+            <AdminProfile/>
+          </AdminRoute>
         </PrivateRoute>
       }
     ],
