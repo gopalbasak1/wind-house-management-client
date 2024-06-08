@@ -33,6 +33,7 @@ const AdminMenu = () => {
               label="Admin Profile" 
               address='admin-profile' 
               icon={RiAdminLine} />
+              
     </>
   )
 }

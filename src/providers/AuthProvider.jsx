@@ -21,6 +21,7 @@ const googleProvider = new GoogleAuthProvider();
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [token, setToken] = useState(localStorage.getItem('token'));
 
   const createUser = async (email, password) => {
     setLoading(true);
@@ -54,6 +55,9 @@ const AuthProvider = ({ children }) => {
       withCredentials: true,
     });
     localStorage.removeItem('token');
+    setToken(null);
+    setUser(null);
+    setLoading(false);
     return signOut(auth);
   };
 
@@ -64,7 +68,6 @@ const AuthProvider = ({ children }) => {
     });
   };
 
-  // Handle user token
   const handleUserToken = async user => {
     const { email } = user;
     const { data } = await axios.post(
@@ -73,10 +76,10 @@ const AuthProvider = ({ children }) => {
       { withCredentials: true }
     );
     localStorage.setItem('token', data.token);
+    setToken(data.token);
     saveUser(user);
   };
 
-  // Save user
   const saveUser = async user => {
     const currentUser = {
       email: user.email,
@@ -87,7 +90,6 @@ const AuthProvider = ({ children }) => {
     await axios.put(`${import.meta.env.VITE_API_URL}/user`, currentUser);
   };
 
-  // OnAuthStateChanged
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, currentUser => {
       setUser(currentUser);
@@ -96,13 +98,12 @@ const AuthProvider = ({ children }) => {
       }
       setLoading(false);
     });
-    return () => {
-      return unsubscribe();
-    };
+    return () => unsubscribe();
   }, []);
 
   const authInfo = {
     user,
+    token,
     loading,
     setLoading,
     createUser,
@@ -119,7 +120,6 @@ const AuthProvider = ({ children }) => {
 };
 
 AuthProvider.propTypes = {
-  // Array of children.
   children: PropTypes.node.isRequired,
 };
 

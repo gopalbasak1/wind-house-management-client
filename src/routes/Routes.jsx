@@ -117,7 +117,7 @@ export const router = createBrowserRouter([
           <Payment/>
           </MemberRoute>
         </PrivateRoute>
-      },
+      }
       
     ],
   }

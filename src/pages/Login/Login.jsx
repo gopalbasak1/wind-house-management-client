@@ -9,9 +9,8 @@ import { Helmet } from 'react-helmet-async';
 const Login = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const from = location?.state || '/';
-  const { signInWithGoogle, signIn, loading, setLoading, resetPassword } =
-    useAuth();
+  const from = location?.state?.from?.pathname || '/';
+  const { signInWithGoogle, signIn, loading, setLoading, resetPassword } = useAuth();
   const [email, setEmail] = useState('');
 
   const handleSubmit = async e => {
@@ -27,13 +26,17 @@ const Login = () => {
       toast.success('Login Successful');
     } catch (err) {
       console.log(err);
-      toast.error(err.message);
+      if (err.code === 'auth/user-not-found' || err.code === 'auth/wrong-password') {
+        toast.error('Incorrect email or password. Please try again.');
+      } else {
+        toast.error(err.message);
+      }
       setLoading(false);
     }
   };
 
   const handleResetPassword = async () => {
-    if (!email) return toast.error('Please write your email first!');
+    if (!email) return toast.error('Please enter your email first!');
     try {
       await resetPassword(email);
       toast.success('Request Success! Check your email for further process...');
