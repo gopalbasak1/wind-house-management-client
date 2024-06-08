@@ -3,6 +3,7 @@ import toast from 'react-hot-toast';
 import useAxiosCommon from '../../../../hooks/useAxiosCommon';
 import useAuth from '../../../../hooks/useAuth';
 import useRole from '../../../../hooks/useRole';
+import { Helmet } from 'react-helmet-async';
 
 const MakeAnnouncement = () => {
   const [loading, setLoading] = useState(false);
@@ -39,7 +40,7 @@ const MakeAnnouncement = () => {
     try {
       await axiosCommon.post('/announcements', announcementData);
       toast.success('Your announcement has been added successfully!');
-
+      form.reset()
       const { data } = await axiosCommon.get('/announcements');
       setAnnouncements(data);
     } catch (err) {
@@ -56,6 +57,9 @@ const MakeAnnouncement = () => {
 
   return (
     <div>
+      <Helmet>
+        <title>Make Announcement</title>
+      </Helmet>
       <h2 className="text-4xl text-center">Make an Announcement</h2>
       {role === 'admin' && (
         <div className="hero my-10">

@@ -1,30 +1,29 @@
-import { useState } from 'react'
-import { GrLogout } from 'react-icons/gr'
-import { FcSettings } from 'react-icons/fc'
-import { AiOutlineBars } from 'react-icons/ai'
-import { BsGraphUp } from 'react-icons/bs'
-import useAuth from '../../../hooks/useAuth'
-import { Link } from 'react-router-dom'
-import {  MdOutlinePayments } from 'react-icons/md'
-import { GiPayMoney } from 'react-icons/gi'
-import useRole from '../../../hooks/useRole'
-import MenuItem from './Menu/MenuItem'
-import { FaUserCog } from 'react-icons/fa'
-import { VscGitPullRequestGoToChanges } from 'react-icons/vsc'
-import UserMenu from '../Menu/UserMenu'
-import MemberMenu from '../Menu/MemberMenu'
-import AdminMenu from '../Menu/AdminMenu'
+import { useState } from 'react';
+import { GrLogout } from 'react-icons/gr';
+import { AiOutlineBars } from 'react-icons/ai';
+import { Link, useNavigate } from 'react-router-dom';
+import useAuth from '../../../hooks/useAuth';
+import useRole from '../../../hooks/useRole';
+import UserMenu from '../Menu/UserMenu';
+import MemberMenu from '../Menu/MemberMenu';
+import AdminMenu from '../Menu/AdminMenu';
 
 const Sidebar = () => {
-  const { logOut } = useAuth()
-  const [isActive, setActive] = useState(false)
+  const { logOut } = useAuth();
+  const [isActive, setActive] = useState(false);
   const [role, isLoading] = useRole();
-  console.log(role, isLoading);
+  const navigate = useNavigate(); // Use navigate for programmatic navigation
 
   // Sidebar Responsive Handler
   const handleToggle = () => {
-    setActive(!isActive)
-  }
+    setActive(!isActive);
+  };
+
+  const handleLogout = async () => {
+    await logOut();
+    navigate('/login'); // Redirect to login page
+  };
+
   return (
     <>
       {/* Small Screen Navbar */}
@@ -33,7 +32,6 @@ const Sidebar = () => {
           <div className='block cursor-pointer p-4 font-bold'>
             <Link to='/'>
               <img
-                // className='hidden md:block'
                 src='https://i.ibb.co/4ZXzmq5/logo.png'
                 alt='logo'
                 width='100'
@@ -62,7 +60,6 @@ const Sidebar = () => {
             <div className='w-full hidden md:flex px-4 py-2 shadow-lg rounded-lg justify-center items-center bg-rose-100 mx-auto'>
               <Link className='flex items-center ' to='/'>
                 <img
-                  // className='hidden md:block'
                   src='https://i.ibb.co/Ctvgz06/Wind-House-1-unscreen.gif'
                   alt='logo'
                   width='60'
@@ -79,14 +76,9 @@ const Sidebar = () => {
 
             {/*  Menu Items */}
             <nav>
-      
-               {role === 'user' && <UserMenu/>}
-
-               {role === 'member' && <MemberMenu/>}
-             
-             {role === 'admin' && <AdminMenu/>}
-            
-              
+              {role === 'user' && <UserMenu />}
+              {role === 'member' && <MemberMenu />}
+              {role === 'admin' && <AdminMenu />}
             </nav>
           </div>
         </div>
@@ -94,21 +86,17 @@ const Sidebar = () => {
         <div>
           <hr />
 
-          {/* Profile Menu */}
-          
-         
           <button
-            onClick={logOut}
-            className='flex w-full items-center px-4 py-2 mt-5 text-gray-600 hover:bg-gray-300   hover:text-gray-700 transition-colors duration-300 transform'
+            onClick={handleLogout}
+            className='flex w-full items-center px-4 py-2 mt-5 text-gray-600 hover:bg-gray-300 hover:text-gray-700 transition-colors duration-300 transform'
           >
             <GrLogout className='w-5 h-5' />
-
             <span className='mx-4 font-medium'>Logout</span>
           </button>
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default Sidebar
+export default Sidebar;

@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../../hooks/useAxiosSecure";
 import LoadingSpinner from "../../../../components/Shared/LoadingSpinner";
+import { Helmet } from "react-helmet-async";
 
 
 const Announcements = () => {
@@ -20,6 +21,11 @@ const Announcements = () => {
 
     return (
         <div>
+          <div>
+          <Helmet>
+        <title>Announcement</title>
+        </Helmet>
+            </div>
             {announcements.length > 0 && (
         <>
           <h2 className="text-2xl text-center my-10">Announcements</h2>

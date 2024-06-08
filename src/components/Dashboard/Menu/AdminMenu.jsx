@@ -3,6 +3,7 @@ import MenuItem from '../Sidebar/Menu/MenuItem'
 import { VscGitPullRequestGoToChanges } from 'react-icons/vsc'
 import { TfiAnnouncement } from 'react-icons/tfi'
 import { RiAdminLine, RiCoupon4Line } from 'react-icons/ri'
+import { FaCircleDollarToSlot } from 'react-icons/fa6'
 
 const AdminMenu = () => {
   return (
@@ -33,6 +34,11 @@ const AdminMenu = () => {
               label="Admin Profile" 
               address='admin-profile' 
               icon={RiAdminLine} />
+
+              <MenuItem 
+              label="All Payments" 
+              address='all-payments' 
+              icon={FaCircleDollarToSlot} />
               
     </>
   )

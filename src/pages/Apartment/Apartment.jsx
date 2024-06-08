@@ -10,6 +10,7 @@ import LoadingSpinner from '../../components/Shared/LoadingSpinner';
 import { Helmet } from 'react-helmet-async';
 import { AuthContext } from '../../providers/AuthProvider';
 import toast from 'react-hot-toast';
+import { motion } from 'framer-motion';
 
 const Apartment = () => {
   const axiosCommon = useAxiosCommon();
@@ -77,11 +78,31 @@ const Apartment = () => {
       </Helmet>
       <Container>
         {apartments && apartments.length > 0 ? (
-          <div className='pt-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-8'>
+          <motion.div 
+            className='pt-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-8'
+            initial="hidden"
+            animate="visible"
+            variants={{
+              hidden: {
+                opacity: 0,
+                y: 20,
+              },
+              visible: {
+                opacity: 1,
+                y: 0,
+                transition: {
+                  delay: 0.2,
+                  duration: 0.5
+                }
+              }
+            }}
+          >
             {apartments.map((room) => (
-              <div
+              <motion.div
                 key={room.apartmentNo}
                 className="flex flex-col items-center justify-center w-full max-w-sm mx-auto cursor-pointer group"
+                whileHover={{ scale: 1.05 }}
+                transition={{ duration: 0.3 }}
               >
                 <div
                   className="w-full h-64 bg-gray-300 bg-center bg-cover rounded-lg shadow-md group-hover:scale-120"
@@ -109,9 +130,9 @@ const Apartment = () => {
                     </button>
                   </div>
                 </div>
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         ) : (
           <div className='flex items-center justify-center min-h-[calc(100vh-300px)]'>
             <Heading

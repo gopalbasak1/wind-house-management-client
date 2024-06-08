@@ -5,6 +5,7 @@ import useAxiosCommon from "../../../hooks/useAxiosCommon";
 import useRole from "../../../hooks/useRole";
 import { BiSolidEdit } from "react-icons/bi";
 import { MdDelete } from "react-icons/md";
+import { Helmet } from 'react-helmet-async';
 
 
 const ManageCoupons = () => {
@@ -88,6 +89,9 @@ const ManageCoupons = () => {
 
   return (
     <div>
+      <Helmet>
+        <title>Manage Coupon</title>
+      </Helmet>
       <h3 className="text-center text-4xl">Manage Coupons</h3>
       <div className="flex justify-end mb-4">
         <button className="btn btn-primary" onClick={() => openModal()}>

@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import useAuth from '../../../../hooks/useAuth';
 import LoadingSpinner from '../../../../components/Shared/LoadingSpinner';
+import { Helmet } from 'react-helmet-async';
 
 const monthMap = {
   1: 'january',
@@ -74,6 +75,9 @@ const PaymentHistory = () => {
 
   return (
     <div>
+       <Helmet>
+        <title>Payment History</title>
+        </Helmet>
       <div className="mb-4 flex items-center justify-center">
         <input
           type="text"

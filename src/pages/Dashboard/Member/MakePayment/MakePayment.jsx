@@ -5,6 +5,7 @@ import useAuth from '../../../../hooks/useAuth';
 import useRole from '../../../../hooks/useRole';
 import LoadingSpinner from '../../../../components/Shared/LoadingSpinner';
 import toast from 'react-hot-toast';
+import { Helmet } from 'react-helmet-async';
 
 const MakePayment = () => {
   const { user, loading } = useAuth() || {};
@@ -63,6 +64,9 @@ const MakePayment = () => {
 
   return (
     <div className="flex justify-center items-center h-screen">
+      <Helmet>
+        <title>Make Payment</title>
+      </Helmet>
       <div className="bg-white shadow-lg rounded-2xl w-3/5">
         <div className="p-4">
           <h2 className="text-xl font-semibold mb-4">Make Payment</h2>

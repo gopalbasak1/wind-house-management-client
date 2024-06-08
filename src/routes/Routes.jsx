@@ -20,6 +20,8 @@ import MakeAnnouncement from '../pages/Dashboard/Admin/MakeAnnouncement/MakeAnno
 import Announcement from '../pages/Dashboard/Member/Announcements/Announcements'
 import ManageCoupons from '../pages/Dashboard/Admin/ManageCoupons'
 import AdminProfile from '../pages/Dashboard/Admin/AdminProfile/AdminProfile'
+import AllPayments from '../pages/Dashboard/Admin/AllPayment/AllPayments'
+
 
 export const router = createBrowserRouter([
   {
@@ -34,7 +36,7 @@ export const router = createBrowserRouter([
       {
         path: '/apartment',
         element: <Apartment />,
-      },
+      }
     ],
   },
 
@@ -70,7 +72,9 @@ export const router = createBrowserRouter([
       },
       {
         path: 'profile',
-        element: <Profile/>
+        element: <PrivateRoute>
+          <Profile/>
+        </PrivateRoute>
       },
       {
         path: 'manage-members',
@@ -116,6 +120,14 @@ export const router = createBrowserRouter([
           <MemberRoute>
           <Payment/>
           </MemberRoute>
+        </PrivateRoute>
+      },
+      {
+        path: 'all-payments',
+        element: <PrivateRoute>
+          <AdminRoute>
+          <AllPayments/>
+          </AdminRoute>
         </PrivateRoute>
       }
       

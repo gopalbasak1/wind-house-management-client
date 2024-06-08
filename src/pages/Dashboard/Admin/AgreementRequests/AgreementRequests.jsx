@@ -4,6 +4,7 @@ import useAxiosSecure from '../../../../hooks/useAxiosSecure';
 import LoadingSpinner from '../../../../components/Shared/LoadingSpinner';
 import Container from '../../../../components/Shared/Container';
 import Heading from '../../../../components/Shared/Heading';
+import { Helmet } from 'react-helmet-async';
 
 const AgreementRequests = () => {
   const axiosSecure = useAxiosSecure();
@@ -53,6 +54,9 @@ const AgreementRequests = () => {
 
   return (
     <Container>
+      <Helmet>
+        <title>Agreement Request</title>
+      </Helmet>
       <Heading title='Agreement Requests' />
       {agreements.length > 0 ? (
         <div className='pt-12 grid grid-cols-1 gap-8'>
