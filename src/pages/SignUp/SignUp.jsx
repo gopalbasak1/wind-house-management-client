@@ -1,14 +1,13 @@
-import { Link, useNavigate } from 'react-router-dom'
-import { FcGoogle } from 'react-icons/fc'
-import useAuth from '../../hooks/useAuth'
-import toast from 'react-hot-toast'
-import { TbFidgetSpinner } from 'react-icons/tb'
-import { imageUpload } from '../../api/utilities'
-import { Helmet } from 'react-helmet-async'
-
+import { Link, useNavigate } from 'react-router-dom';
+import { FcGoogle } from 'react-icons/fc';
+import useAuth from '../../hooks/useAuth';
+import toast from 'react-hot-toast';
+import { TbFidgetSpinner } from 'react-icons/tb';
+import { imageUpload } from '../../api/utilities';
+import { Helmet } from 'react-helmet-async';
 
 const SignUp = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const {
     createUser,
     signInWithGoogle,
@@ -18,52 +17,48 @@ const SignUp = () => {
   } = useAuth();
 
   const handleSubmit = async e => {
-    e.preventDefault()
-    const form = e.target
-    const name = form.name.value
-    const email = form.email.value
-    const password = form.password.value
-    const image = form.image.files[0]
-
+    e.preventDefault();
+    const form = e.target;
+    const name = form.name.value;
+    const email = form.email.value;
+    const password = form.password.value;
+    const image = form.image.files[0];
 
     try {
-      setLoading(true)
+      setLoading(true);
       // 1. Upload image and get image url
       const image_url = await imageUpload(image);
       console.log(image_url);
 
-      //2. User Registration
-      const result = await createUser(email, password)
-      console.log(result)
+      // 2. User Registration
+      const result = await createUser(email, password);
+      console.log(result);
 
       // 3. Save username and photo in firebase
-      await updateUserProfile(name, image_url)
-      navigate('/')
-      toast.success('Signup Successful')
+      await updateUserProfile(name, image_url);
+      navigate('/');
+      toast.success('Signup Successful');
     } catch (err) {
-      console.log(err)
-      toast.error(err.message)
-    }
-  }
-
-  // handle google signin
-  const handleGoogleSignIn = async () => {
-    try {
-      await signInWithGoogle()
-
-      navigate('/')
-      toast.success('Sign Up Successful')
-    } catch (err) {
-      console.log(err)
-      toast.error(err.message)
+      console.log(err);
+      toast.error(err.message);
     }
   };
 
-
+  // Handle Google SignIn
+  const handleGoogleSignIn = async () => {
+    try {
+      await signInWithGoogle();
+      navigate('/');
+      toast.success('Sign Up Successful');
+    } catch (err) {
+      console.log(err);
+      toast.error(err.message);
+    }
+  };
 
   return (
     <div className='flex justify-center items-center min-h-screen'>
-     <Helmet>
+      <Helmet>
         <title>Wind House | Sign Up</title>
       </Helmet>
       <div className='flex flex-col max-w-md p-6 rounded-md sm:p-10 bg-gray-100 text-gray-900'>
@@ -157,7 +152,6 @@ const SignUp = () => {
           className='disabled:cursor-not-allowed flex justify-center items-center space-x-2 border m-3 p-2 border-gray-300 border-rounded cursor-pointer'
         >
           <FcGoogle size={32} />
-
           <p>Continue with Google</p>
         </button>
         <p className='px-6 text-sm text-center text-gray-400'>
@@ -171,7 +165,7 @@ const SignUp = () => {
         </p>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default SignUp
+export default SignUp;

@@ -1,5 +1,5 @@
-import PropTypes from 'prop-types'
-import { createContext, useEffect, useState } from 'react'
+import PropTypes from 'prop-types';
+import { createContext, useEffect, useState } from 'react';
 import {
   GoogleAuthProvider,
   createUserWithEmailAndPassword,
@@ -10,88 +10,96 @@ import {
   signInWithPopup,
   signOut,
   updateProfile,
-} from 'firebase/auth'
-import { app } from '../firebase/firebase.config'
-import axios from 'axios'
-export const AuthContext = createContext(null)
-const auth = getAuth(app)
-const googleProvider = new GoogleAuthProvider()
+} from 'firebase/auth';
+import { app } from '../firebase/firebase.config';
+import axios from 'axios';
+
+export const AuthContext = createContext(null);
+const auth = getAuth(app);
+const googleProvider = new GoogleAuthProvider();
 
 const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null)
-  const [loading, setLoading] = useState(true)
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  const createUser = (email, password) => {
-    setLoading(true)
-    return createUserWithEmailAndPassword(auth, email, password)
-  }
+  const createUser = async (email, password) => {
+    setLoading(true);
+    const result = await createUserWithEmailAndPassword(auth, email, password);
+    await handleUserToken(result.user);
+    return result;
+  };
 
-  const signIn = (email, password) => {
-    setLoading(true)
-    return signInWithEmailAndPassword(auth, email, password)
-  }
+  const signIn = async (email, password) => {
+    setLoading(true);
+    const result = await signInWithEmailAndPassword(auth, email, password);
+    await handleUserToken(result.user);
+    return result;
+  };
 
-  const signInWithGoogle = () => {
-    setLoading(true)
-    return signInWithPopup(auth, googleProvider)
-  }
+  const signInWithGoogle = async () => {
+    setLoading(true);
+    const result = await signInWithPopup(auth, googleProvider);
+    await handleUserToken(result.user);
+    return result;
+  };
 
   const resetPassword = email => {
-    setLoading(true)
-    return sendPasswordResetEmail(auth, email)
-  }
+    setLoading(true);
+    return sendPasswordResetEmail(auth, email);
+  };
 
   const logOut = async () => {
-    setLoading(true)
+    setLoading(true);
     await axios.get(`${import.meta.env.VITE_API_URL}/logout`, {
       withCredentials: true,
-    })
-    return signOut(auth)
-  }
+    });
+    localStorage.removeItem('token');
+    return signOut(auth);
+  };
 
   const updateUserProfile = (name, photo) => {
     return updateProfile(auth.currentUser, {
       displayName: name,
       photoURL: photo,
-    })
-  }
-  //Get token from server
-  const getToken = async email => {
+    });
+  };
+
+  // Handle user token
+  const handleUserToken = async user => {
+    const { email } = user;
     const { data } = await axios.post(
       `${import.meta.env.VITE_API_URL}/jwt`,
       { email },
       { withCredentials: true }
-    )
-    return data
+    );
+    localStorage.setItem('token', data.token);
+    saveUser(user);
   };
 
-  //save user
-  const saveUser = async user=>{
-    const currentUser ={
-      email: user?.email,
-      name: user?.name,
+  // Save user
+  const saveUser = async user => {
+    const currentUser = {
+      email: user.email,
+      name: user.displayName,
       role: 'user',
-      status: 'Verified'
-    }
-    const {data} = await axios.put(`${import.meta.env.VITE_API_URL}/user`, currentUser)
-    return data
-  }
+      status: 'Verified',
+    };
+    await axios.put(`${import.meta.env.VITE_API_URL}/user`, currentUser);
+  };
 
-
-  //onAuthStateChange
+  // OnAuthStateChanged
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, currentUser => {
-      setUser(currentUser)
+      setUser(currentUser);
       if (currentUser) {
-        getToken(currentUser.email);
-        saveUser(currentUser)
+        handleUserToken(currentUser);
       }
-      setLoading(false)
-    })
+      setLoading(false);
+    });
     return () => {
-      return unsubscribe()
-    }
-  }, [])
+      return unsubscribe();
+    };
+  }, []);
 
   const authInfo = {
     user,
@@ -103,16 +111,16 @@ const AuthProvider = ({ children }) => {
     resetPassword,
     logOut,
     updateUserProfile,
-  }
+  };
 
   return (
     <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>
-  )
-}
+  );
+};
 
 AuthProvider.propTypes = {
   // Array of children.
-  children: PropTypes.array,
-}
+  children: PropTypes.node.isRequired,
+};
 
-export default AuthProvider
+export default AuthProvider;

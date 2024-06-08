@@ -1,11 +1,10 @@
-import { Link, useLocation, useNavigate } from 'react-router-dom'
-import { FcGoogle } from 'react-icons/fc'
-import useAuth from '../../hooks/useAuth'
-import toast from 'react-hot-toast'
-import { TbFidgetSpinner } from 'react-icons/tb'
-import { useState } from 'react'
-import { Helmet } from 'react-helmet-async'
-
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { FcGoogle } from 'react-icons/fc';
+import useAuth from '../../hooks/useAuth';
+import toast from 'react-hot-toast';
+import { TbFidgetSpinner } from 'react-icons/tb';
+import { useState } from 'react';
+import { Helmet } from 'react-helmet-async';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -16,50 +15,46 @@ const Login = () => {
   const [email, setEmail] = useState('');
 
   const handleSubmit = async e => {
-    e.preventDefault()
-    const form = e.target
-    const email = form.email.value
-    const password = form.password.value
+    e.preventDefault();
+    const form = e.target;
+    const email = form.email.value;
+    const password = form.password.value;
 
     try {
-      setLoading(true)
-      // 1. sign in user
-      await signIn(email, password)
-      navigate(from)
-      toast.success('Signup Successful')
+      setLoading(true);
+      await signIn(email, password);
+      navigate(from);
+      toast.success('Login Successful');
     } catch (err) {
-      console.log(err)
-      toast.error(err.message)
-      setLoading(false)
+      console.log(err);
+      toast.error(err.message);
+      setLoading(false);
     }
-  }
+  };
 
   const handleResetPassword = async () => {
-    if (!email) return toast.error('Please write your email first!')
+    if (!email) return toast.error('Please write your email first!');
     try {
-      await resetPassword(email)
-      toast.success('Request Success! Check your email for further process...')
-      setLoading(false)
+      await resetPassword(email);
+      toast.success('Request Success! Check your email for further process...');
+      setLoading(false);
     } catch (err) {
-      console.log(err)
-      toast.error(err.message)
-      setLoading(false)
+      console.log(err);
+      toast.error(err.message);
+      setLoading(false);
     }
-    console.log(email)
-  }
+  };
 
-  // handle google signin
   const handleGoogleSignIn = async () => {
     try {
-      await signInWithGoogle()
-
-      navigate(from)
-      toast.success('Signup Successful')
+      await signInWithGoogle();
+      navigate(from);
+      toast.success('Sign In Successful');
     } catch (err) {
-      console.log(err)
-      toast.error(err.message)
+      console.log(err);
+      toast.error(err.message);
     }
-  }
+  };
 
   return (
     <div className='flex justify-center items-center min-h-screen'>
@@ -69,14 +64,9 @@ const Login = () => {
       <div className='flex flex-col max-w-md p-6 rounded-md sm:p-10 bg-gray-100 text-gray-900'>
         <div className='mb-8 text-center'>
           <h1 className='my-3 text-4xl font-bold'>Log In</h1>
-          <p className='text-sm text-gray-400'>
-            Sign in to access your account
-          </p>
+          <p className='text-sm text-gray-400'>Sign in to access your account</p>
         </div>
-        <form
-          onSubmit={handleSubmit}
-          className='space-y-6 ng-untouched ng-pristine ng-valid'
-        >
+        <form onSubmit={handleSubmit} className='space-y-6 ng-untouched ng-pristine ng-valid'>
           <div className='space-y-4'>
             <div>
               <label htmlFor='email' className='block mb-2 text-sm'>
@@ -163,7 +153,7 @@ const Login = () => {
         </p>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;
