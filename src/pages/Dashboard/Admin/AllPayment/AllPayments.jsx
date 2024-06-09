@@ -1,13 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
 import LoadingSpinner from "../../../../components/Shared/LoadingSpinner";
 import useAxiosSecure from "../../../../hooks/useAxiosSecure";
-import useAuth from "../../../../hooks/useAuth";
 import { PDFDocument } from 'pdf-lib';
 import domtoimage from 'dom-to-image';
 import { Helmet } from "react-helmet-async";
 
 const AllPayments = () => {
-  const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
 
   // Fetch users Data
@@ -68,23 +66,28 @@ const AllPayments = () => {
     }
   };
 
+  console.log(payments);
+
   return (
     <div>
       <Helmet>
         <title>All Payments</title>
       </Helmet>
-     <div className="flex justify-end">
-     <button className="btn btn-primary btn-sm mb-4" onClick={handlePrint}>
-        Download All Payments
-      </button>
-     </div>
+      <div className="flex justify-end">
+        <button className="btn btn-primary btn-md mb-4" onClick={handlePrint}>
+          Download All Payments
+        </button>
+      </div>
       <div className="overflow-x-auto" id="paymentsTable">
-        <table className="table">
+        <table className="table w-full">
           {/* head */}
           <thead>
             <tr>
               <th>SL</th>
               <th>Email</th>
+              <th>Apartment No</th>
+              <th>Block Name</th>
+              <th>Floor No</th>
               <th>Month Name</th>
               <th>Payment Date</th>
               <th>Rent</th>
@@ -95,6 +98,9 @@ const AllPayments = () => {
               <tr key={payment._id}>
                 <th>{index + 1}</th>
                 <td>{payment.userEmail}</td>
+                <td>{payment.apartmentNo}</td>
+                <td>{payment.blockName}</td>
+                <td>{payment.floorNo}</td>
                 <td>{payment.month}</td>
                 <td>{payment.paymentDate}</td>
                 <td>
@@ -105,9 +111,9 @@ const AllPayments = () => {
           </tbody>
           <tfoot>
             <tr>
-              <th className="text-lg font-semibold text-red-500" colSpan="4">Total Rent</th>
-              <th>
-                <button className="btn btn-ghost btn-xs text-lg font-semibold text-red-500">{totalRent}</button>
+              <th colSpan="7" className="text-lg font-semibold text-red-500 text-right mt-2">Total Rent</th>
+              <th className="text-lg font-semibold text-red-500">
+              {totalRent}
               </th>
             </tr>
           </tfoot>

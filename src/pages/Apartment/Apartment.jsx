@@ -38,7 +38,7 @@ const Apartment = () => {
     return <div>Error loading apartments</div>;
   }
 
-  const { apartments, total, totalPages } = data;
+  const { apartments, totalPages } = data;
 
   const handleAgreementClick = async (room) => {
     if (!user) {

@@ -1,8 +1,6 @@
-import React from 'react';
+/* eslint-disable react/prop-types */
 import { toast } from 'react-hot-toast';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
-
-
 
 
 const UserDataRow = ({ user, refetch }) => {
@@ -13,7 +11,7 @@ const UserDataRow = ({ user, refetch }) => {
       const response = await axiosSecure.put('/user/role', { email: user.email, role: 'user' });
       if (response.data.success) {
         toast.success('User role updated successfully');
-        refetch();
+        refetch(); // Refetch users data to refresh the table
       }
     } catch (error) {
       toast.error('Failed to update user role');
