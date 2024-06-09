@@ -29,7 +29,7 @@ const PaymentHistory = () => {
   useEffect(() => {
     if (user) {
       axios
-        .get(`http://localhost:5000/payments/${user.email}`, { withCredentials: true })
+        .get(`https://server-mu-six-58.vercel.app/payments/${user.email}`, { withCredentials: true })
         .then((response) => {
           setPayments(response.data);
           setFilteredPayments(response.data); // Set initial filtered payments to all payments

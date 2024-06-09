@@ -5,6 +5,7 @@ import toast from 'react-hot-toast';
 import { TbFidgetSpinner } from 'react-icons/tb';
 import { imageUpload } from '../../api/utilities';
 import { Helmet } from 'react-helmet-async';
+import './SignUp.css'
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -82,11 +83,11 @@ const SignUp = () => {
   };
 
   return (
-    <div className='flex justify-center items-center min-h-screen'>
+    <div className='flex justify-center items-center min-h-screen background'>
       <Helmet>
         <title>Wind House | Sign Up</title>
       </Helmet>
-      <div className='flex flex-col max-w-md p-6 rounded-md sm:p-10 bg-gray-100 text-gray-900'>
+      <div className='flex flex-col max-w-md p-6 rounded-md sm:p-10 border-2 text-white'>
         <div className='mb-8 text-center'>
           <h1 className='my-3 text-4xl font-bold'>Sign Up</h1>
           <p className='text-sm text-gray-400'>Welcome to Wind House</p>
@@ -176,7 +177,7 @@ const SignUp = () => {
           className='disabled:cursor-not-allowed flex justify-center items-center space-x-2 border m-3 p-2 border-gray-300 border-rounded cursor-pointer'
         >
           <FcGoogle size={32} />
-          <p>Continue with Google</p>
+          <p className='hover:text-red-500'>Continue with Google</p>
         </button>
         <p className='px-6 text-sm text-center text-gray-400'>
           Already have an account?{' '}

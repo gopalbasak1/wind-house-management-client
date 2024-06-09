@@ -20,7 +20,7 @@ const MakePayment = () => {
   useEffect(() => {
     if (user) {
       axios
-        .get(`http://localhost:5000/user/${user.email}`, { withCredentials: true })
+        .get(`https://server-mu-six-58.vercel.app/user/${user.email}`, { withCredentials: true })
         .then((response) => {
           setProfileData(response.data);
           setIsProfileLoading(false);

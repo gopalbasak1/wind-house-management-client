@@ -75,7 +75,7 @@ const AllPayments = () => {
       </Helmet>
      <div className="flex justify-end">
      <button className="btn btn-primary btn-sm mb-4" onClick={handlePrint}>
-        Download PDF
+        Download All Payments
       </button>
      </div>
       <div className="overflow-x-auto" id="paymentsTable">
