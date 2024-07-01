@@ -7,6 +7,13 @@ Wind House is a comprehensive Building Management System (BMS) designed to strea
 
 [Wind House](https://windhouse-92e50.web.app/)
 
+## Major Features:
+
+- **Home page with dynamic banner, building details, coupons, location map, and footer.** 
+
+- **Dashboards User, Member, and Admin dashboards with profile management, announcements, and specific functionalities.**
+
+- **Authentication JWT-based authentication and authorization with persistent login.**
 
 ## Features
 
